@@ -52,8 +52,6 @@ async function connectDB() {
 const app = express();
 
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'html')));
 
 const mongoStore = MongoStore.create({
     mongoUrl: mongoUri,
@@ -103,6 +101,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/signup', (req, res) => {
+    res.setHeader('Content-Type', 'text/html');
     res.sendFile(path.join(__dirname, 'html', 'signUp.html'));
 });
 
@@ -200,7 +199,7 @@ app.get('/members', (req, res) => {
         return res.redirect('/');
     }
 
-    const images = ['/image1.png', '/image2.jpg', '/image3.gif']; // Relative paths from public folder
+    const images = ['/image1.png', '/image2.jpg', '/image3.gif'];
     const randomImage = images[Math.floor(Math.random() * images.length)];
 
     fs.readFile(path.join(__dirname, 'html', 'members.html'), 'utf8', (err, data) => {
@@ -225,6 +224,8 @@ app.get('/logout', (req, res) => {
     });
 });
 
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'html')));
 
 app.use((req, res) => {
     res.status(404).sendFile(path.join(__dirname, 'html', '404.html'));
