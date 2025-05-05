@@ -24,7 +24,7 @@ if (!mongodb_host || !mongodb_user || !mongodb_password || !mongodb_database || 
     process.exit(1);
 }
 
-const mongoUri = `${mongodb_host}/${mongodb_database}?retryWrites=true&w=majority`;
+const mongoUri = `mongodb+srv://${mongodb_user}:${mongodb_password}@${mongodb_host}/${mongodb_database}?retryWrites=true&w=majority&appName=Assignment1`;
 
 const client = new MongoClient(mongoUri, {
     serverApi: {
