@@ -89,7 +89,7 @@ function sendErrorPage(res, message, backLink, statusCode = 400) {
 
 app.get('/', (req, res) => {
     if (req.session.authenticated) {
-        fs.readFile(path.join(__dirname, 'html', 'index.html'), 'utf8', (err, data) => {
+        fs.readFile(path.join(__dirname, 'html', 'index-loggedIn.html'), 'utf8', (err, data) => {
             if (err) {
                 console.error("Error reading logged in home:", err);
                 return res.status(500).send("Internal Server Error");
@@ -98,7 +98,7 @@ app.get('/', (req, res) => {
             res.send(htmlContent);
         });
     } else {
-        res.sendFile(path.join(__dirname, 'public', 'index-logged_out.html'));
+        res.sendFile(path.join(__dirname, 'html', 'index-logged_out.html'));
     }
 });
 
