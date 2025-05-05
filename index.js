@@ -235,8 +235,8 @@ app.use((req, res) => {
 
 
 connectDB().then(() => {
-    app.listen(port, () => {
-        console.log(`Server listening on http://localhost:${port}`);
+    app.listen(port, '0.0.0.0', () => {
+        console.log(`Server listening on ${port}`);
     });
 }).catch(err => {
     console.error("Server failed to start due to DB connection issue:", err);
