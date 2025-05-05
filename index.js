@@ -199,9 +199,8 @@ app.get('/members', (req, res) => {
         return res.redirect('/');
     }
 
-    const images = ['image1.png', 'image2.jpg', 'image3.gif'];
-    const randomImage = images[Math.floor(Math.random() * images.length)];
-    const imagePath = path.join(__dirname, 'public', 'images', randomImage);
+    const imageWebPaths = ['/images/image1.png', '/images/image2.jpg', '/images/image3.gif'];
+    const randomImagePath = imageWebPaths[Math.floor(Math.random() * imageWebPaths.length)];
 
     fs.readFile(path.join(__dirname, 'html', 'members.html'), 'utf8', (err, data) => {
         if (err) {
@@ -209,7 +208,9 @@ app.get('/members', (req, res) => {
             return res.status(500).send("Internal Server Error");
         }
         let htmlContent = data.replace('{{user}}', req.session.name);
-        htmlContent = htmlContent.replace('{{randomImg}}', imagePath);
+
+        htmlContent = htmlContent.replace('{{randomImg}}', randomImagePath);
+
         res.send(htmlContent);
     });
 });
